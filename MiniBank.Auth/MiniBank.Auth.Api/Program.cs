@@ -21,6 +21,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IMessageBroker, RabbitMqService>();
+builder.Services.AddScoped<IMessageBrokerConsumer, MessageBrokerConsumer>();
+builder.Services.AddScoped<IMessageBrokerPublisher, MessageBrokerPublisher>();
 
 builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
