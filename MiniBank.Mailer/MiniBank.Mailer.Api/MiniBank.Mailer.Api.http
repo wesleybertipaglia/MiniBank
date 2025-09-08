@@ -1,0 +1,6 @@
+@MiniBank.Mailer.Api_HostAddress = http://localhost:5282
+
+GET {{MiniBank.Mailer.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

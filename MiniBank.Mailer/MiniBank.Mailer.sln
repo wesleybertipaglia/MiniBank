@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBank.Mailer.Core", "MiniBank.Mailer.Core\MiniBank.Mailer.Core.csproj", "{7705F826-6342-4C8D-90F9-9C23382E4DB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBank.Mailer.Application", "MiniBank.Mailer.Application\MiniBank.Mailer.Application.csproj", "{D9203C63-70BC-44A7-8A27-602D3E5BD68C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBank.Mailer.Infrastructure", "MiniBank.Mailer.Infrastructure\MiniBank.Mailer.Infrastructure.csproj", "{3BD51349-DD78-4307-9556-E047CB37C5F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBank.Mailer.Api", "MiniBank.Mailer.Api\MiniBank.Mailer.Api.csproj", "{B369E950-A34A-4344-8401-287FBC1C011C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBank.Mailer.Tests", "MiniBank.Mailer.Tests\MiniBank.Mailer.Tests.csproj", "{D2C5D52D-F576-4D0B-8DBB-730050CE2123}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7705F826-6342-4C8D-90F9-9C23382E4DB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7705F826-6342-4C8D-90F9-9C23382E4DB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7705F826-6342-4C8D-90F9-9C23382E4DB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7705F826-6342-4C8D-90F9-9C23382E4DB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9203C63-70BC-44A7-8A27-602D3E5BD68C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9203C63-70BC-44A7-8A27-602D3E5BD68C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9203C63-70BC-44A7-8A27-602D3E5BD68C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9203C63-70BC-44A7-8A27-602D3E5BD68C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BD51349-DD78-4307-9556-E047CB37C5F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BD51349-DD78-4307-9556-E047CB37C5F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BD51349-DD78-4307-9556-E047CB37C5F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BD51349-DD78-4307-9556-E047CB37C5F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B369E950-A34A-4344-8401-287FBC1C011C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B369E950-A34A-4344-8401-287FBC1C011C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B369E950-A34A-4344-8401-287FBC1C011C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B369E950-A34A-4344-8401-287FBC1C011C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2C5D52D-F576-4D0B-8DBB-730050CE2123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2C5D52D-F576-4D0B-8DBB-730050CE2123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2C5D52D-F576-4D0B-8DBB-730050CE2123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2C5D52D-F576-4D0B-8DBB-730050CE2123}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
