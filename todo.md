@@ -26,23 +26,23 @@
 
 > Criar e implementar o serviço de autenticação de usuários.
 
-* [ ] Definir e implementar entidades (ex: `User`, `Role`)
-* [ ] Criar DTOs e mapeamentos com AutoMapper
-* [ ] Implementar serviços principais (cadastro, login, autenticação JWT)
-* [ ] Implementar repositórios e persistência com EF Core + PostgreSQL
-* [ ] Configurar comunicação assíncrona via RabbitMQ (ex: envio de evento "UserCreated")
-* [ ] Capturar logs com Serilog
-* [ ] Criar testes unitários com xUnit
-* [ ] Criar Dockerfile para build do serviço
-* [ ] Atualizar docker-compose com o serviço
-* [ ] Documentar endpoints no Swagger
+* [x] Definir e implementar entidades (ex: `User`, `Role`)
+* [x] Criar DTOs e mapeamentos com AutoMapper
+* [x] Implementar serviços principais (cadastro, login, autenticação JWT)
+* [x] Implementar repositórios e persistência com EF Core + PostgreSQL
+* [x] Configurar comunicação assíncrona via RabbitMQ (ex: envio de evento "UserCreated")
+* [x] Capturar logs com Serilog
+* [x] Criar testes unitários com xUnit
+* [x] Criar Dockerfile para build do serviço
+* [x] Atualizar docker-compose com o serviço
+* [x] Documentar endpoints no Swagger
 
 ## Fase 3 – Serviço Bancário (Bank)
 
 > Criar e implementar o serviço responsável pelas contas e transações.
 
-* [ ] Definir entidades (ex: `Account`, `Transaction`)
-* [ ] Criar DTOs e mapeamentos
+* [x] Definir entidades (ex: `Account`, `Transaction`)
+* [x] Criar DTOs e mapeamentos
 * [ ] Implementar regras de negócio (criação de conta, transferência, extrato)
 * [ ] Integrar com RabbitMQ para consumir eventos do Auth (ex: `UserCreated`)
 * [ ] Publicar eventos de transação
