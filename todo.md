@@ -19,7 +19,7 @@
 
 * [x] Configurar o Swagger em cada API
 * [x] Configurar o Ocelot no API Gateway
-* [ ] Criar arquivos `.dockerignore` e `.gitignore`
+* [x] Criar arquivos `.dockerignore` e `.gitignore`
 * [x] Criar README inicial com instruções básicas
 
 ## Fase 2 – Serviço de Autenticação (Auth)
