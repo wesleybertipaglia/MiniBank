@@ -4,6 +4,7 @@ using MiniBank.Auth.Application.Service;
 using MiniBank.Auth.Core.Interface;
 using MiniBank.Auth.Infrastructure.Data;
 using MiniBank.Auth.Infrastructure.Repository;
+using MiniBank.Auth.Infrastructure.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IMessageBroker, RabbitMqService>();
 
 builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
