@@ -4,23 +4,23 @@
 
 > Criar a estrutura base dos projetos e configurar o ambiente de desenvolvimento.
 
-* [ ] Criar a solution principal `MiniBank.sln`
-* [ ] Criar o projeto `MiniBank.ApiGateway`
-* [ ] Criar os projetos `MiniBank.Auth`, `MiniBank.Bank`, `MiniBank.Mailer` organizados por camadas:
+* [x] Criar a solution principal `MiniBank.sln`
+* [x] Criar o projeto `MiniBank.ApiGateway`
+* [x] Criar os projetos `MiniBank.Auth`, `MiniBank.Bank`, `MiniBank.Mailer` organizados por camadas:
   * `.API`
   * `.Application`
   * `.Core`
   * `.Infrastructure`
   * `.Tests`
 
-* [ ] Adicionar e configurar o Docker Compose com:
+* [x] Adicionar e configurar o Docker Compose com:
   * PostgreSQL
   * RabbitMQ
 
-* [ ] Configurar o Swagger em cada API
-* [ ] Configurar o Ocelot no API Gateway
-* [ ] Criar arquivos `.dockerignore` e `.gitignore`
-* [ ] Criar README inicial com instruções básicas
+* [x] Configurar o Swagger em cada API
+* [x] Configurar o Ocelot no API Gateway
+* [x] Criar arquivos `.dockerignore` e `.gitignore`
+* [x] Criar README inicial com instruções básicas
 
 ## Fase 2 – Serviço de Autenticação (Auth)
 
