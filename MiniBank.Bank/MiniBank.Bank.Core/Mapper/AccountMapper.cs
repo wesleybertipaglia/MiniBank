@@ -10,6 +10,7 @@ public static class AccountMapper
         return new AccountResponseDto
         (
             account.Id,
+            account.UserId,
             account.Balance,
             account.CreatedAt,
             account.UpdatedAt
