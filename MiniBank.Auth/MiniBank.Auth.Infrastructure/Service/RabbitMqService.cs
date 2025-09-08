@@ -1,4 +1,7 @@
 using System.Text;
+using Microsoft.Extensions.Logging;
+using MiniBank.Auth.Core.Helper;
+using MiniBank.Auth.Core.Helpers;
 using MiniBank.Auth.Core.Interface;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -10,6 +13,12 @@ public class RabbitMqService : IMessageBroker
     private const string _hostName = "localhost";
     private IConnection? _connection;
     private IChannel? _channel;
+    private readonly ILogger<RabbitMqService> _logger;
+
+    public RabbitMqService(ILogger<RabbitMqService> logger)
+    {
+        _logger = logger;
+    }
 
     public async Task SendMessageAsync(string queueName, string message)
     {
@@ -35,7 +44,7 @@ public class RabbitMqService : IMessageBroker
             body: body
         );
 
-        Console.WriteLine($"[x] Sent {message}");
+        LogHelper.LogInfo(_logger, $"Sent {message}");
     }
 
     public async Task ReceiveMessageAsync(string queueName, Func<string, Task> onMessageReceived)
@@ -69,14 +78,14 @@ public class RabbitMqService : IMessageBroker
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro ao processar mensagem: {ex.Message}");
+                LogHelper.LogError(_logger, ex, "Error processing message");
                 await _channel.BasicNackAsync(ea.DeliveryTag, false, requeue: true);
             }
         };
 
         await _channel.BasicConsumeAsync(queue: queueName, autoAck: false, consumer: consumer);
 
-        Console.WriteLine($"[*] Consumindo fila: {queueName}");
+        LogHelper.LogInfo(_logger, $"Listening to queue: {queueName}");
     }
 }
 

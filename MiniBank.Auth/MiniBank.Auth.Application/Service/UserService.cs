@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using MiniBank.Auth.Core.Dto;
+using MiniBank.Auth.Core.Helper;
 using MiniBank.Auth.Core.Helpers;
 using MiniBank.Auth.Core.Interface;
 using MiniBank.Auth.Core.Mapper;

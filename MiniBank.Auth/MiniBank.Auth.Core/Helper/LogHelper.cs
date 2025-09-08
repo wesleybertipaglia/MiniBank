@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging;
 
-namespace MiniBank.Auth.Core.Helpers;
+namespace MiniBank.Auth.Core.Helper;
 
 public static class LogHelper
 {
