@@ -1,0 +1,45 @@
+services:
+  minibank_adminer:
+    image: adminer:latest
+    container_name: minibank_adminer
+    ports:
+      - "8081:8080"
+
+  minibank_rabbitmq:
+    image: rabbitmq:3-management
+    container_name: minibank_rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - minibank_rmq_data:/var/lib/rabbitmq
+
+  minibank_db_auth:
+    image: postgres:latest
+    container_name: minibank_db_auth
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: minibank_db_auth
+    ports:
+      - "5420:5432"
+    volumes:
+      - minibank_db_data_auth:/var/lib/postgresql/data
+
+  minibank_db_bank:
+    image: postgres:latest
+    container_name: minibank_db_bank
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: minibank_db_bank
+    ports:
+      - "5430:5432"
+    volumes:
+      - minibank_db_data_bank:/var/lib/postgresql/data
+
+
+volumes:
+  minibank_rmq_data:
+  minibank_db_data_auth:
+  minibank_db_data_bank:
