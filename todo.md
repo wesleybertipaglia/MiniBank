@@ -18,7 +18,7 @@
   * RabbitMQ
 
 * [x] Configurar o Swagger em cada API
-* [ ] Configurar o Ocelot no API Gateway
+* [x] Configurar o Ocelot no API Gateway
 * [ ] Criar arquivos `.dockerignore` e `.gitignore`
 * [x] Criar README inicial com instruções básicas
 
