@@ -4,7 +4,7 @@ using MiniBank.Auth.Core.Mapper;
 
 namespace MiniBank.Auth.Application.Service;
 
-public class UserService(IUserRepository userRepository) : IUserService
+public class UserService(IUserRepository userRepository, IMessageBrokerPublisher messageBrokerPublisher) : IUserService
 {
     public async Task<UserDto> GetByIdAsync(Guid id)
     {
@@ -32,6 +32,7 @@ public class UserService(IUserRepository userRepository) : IUserService
 
         user.EmailConfirmed = true;
         await userRepository.UpdateAsync(user);
+        await messageBrokerPublisher.PublishEmailConfirmedAsync(user);
 
         return UserMapper.Map(user);
     }

@@ -6,7 +6,7 @@ using MiniBank.Auth.Core.Mapper;
 
 namespace MiniBank.Auth.Application.Service;
 
-public class AuthService(IUserRepository userRepository, IConfiguration configuration)
+public class AuthService(IUserRepository userRepository, IConfiguration configuration, IMessageBrokerPublisher messageBrokerPublisher)
     : IAuthService
 {
     public async Task<AuthResponseDto> SignIn(SignInRequestDto signInRequestDto)
@@ -38,6 +38,7 @@ public class AuthService(IUserRepository userRepository, IConfiguration configur
         var user = UserMapper.Map(signUpRequestDto);
         await userRepository.CreateAsync(user);
         var token = TokenHelper.GenerateJwtToken(configuration, user);
+        await messageBrokerPublisher.PublishUserCreatedAsync(user);
         
         return AuthMapper.Map
         (
