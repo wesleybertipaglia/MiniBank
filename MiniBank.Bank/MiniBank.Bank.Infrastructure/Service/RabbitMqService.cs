@@ -87,5 +87,3 @@ public class RabbitMqService : IMessageBroker
         LogHelper.LogInfo(_logger, $"Listening to queue: {queueName}");
     }
 }
-
-
