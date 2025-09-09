@@ -26,7 +26,7 @@
 
 > Criar e implementar o serviço de autenticação de usuários.
 
-* [x] Definir e implementar entidades (ex: `User`, `Role`)
+* [x] Definir e implementar entidades
 * [x] Criar DTOs e mapeamentos com AutoMapper
 * [x] Implementar serviços principais (cadastro, login, autenticação JWT)
 * [x] Implementar repositórios e persistência com EF Core + PostgreSQL
@@ -41,27 +41,27 @@
 
 > Criar e implementar o serviço responsável pelas contas e transações.
 
-* [x] Definir entidades (ex: `Account`, `Transaction`)
+* [x] Definir entidades
 * [x] Criar DTOs e mapeamentos
-* [ ] Implementar regras de negócio (criação de conta, transferência, extrato)
-* [ ] Integrar com RabbitMQ para consumir eventos do Auth (ex: `UserCreated`)
-* [ ] Publicar eventos de transação
-* [ ] Capturar logs com Serilog
-* [ ] Criar testes unitários
+* [x] Implementar regras de negócio (criação de conta, transferência, extrato)
+* [x] Integrar com RabbitMQ para consumir eventos do Auth
+* [x] Publicar eventos de transação
+* [x] Capturar logs com Serilog
+* [x] Criar testes unitários
 * [ ] Criar Dockerfile
-* [ ] Documentar endpoints
+* [x] Documentar endpoints
 
 ## Fase 4 – Serviço de Notificação (Mailer)
 
 > Criar e implementar o serviço para envio de notificações por e-mail.
 
-* [ ] Criar entidades (ex: `EmailNotification`)
-* [ ] Criar DTOs e serviços para envio simulado de e-mail
-* [ ] Consumir eventos do Bank (ex: `TransactionCreated`)
-* [ ] Capturar logs com Serilog
-* [ ] Criar testes unitários
+* [x] Criar entidades
+* [x] Criar DTOs e serviços para envio simulado de e-mail
+* [x] Consumir eventos do Bank
+* [x] Capturar logs com Serilog
+* [x] Criar testes unitários
 * [ ] Criar Dockerfile
-* [ ] Documentar funcionamento e payload esperado dos eventos
+* [x] Documentar funcionamento e payload esperado dos eventos
 
 ## Fase 5 – CI/CD com GitHub Actions
 
