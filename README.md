@@ -13,6 +13,8 @@
 
 ## Arquitetura
 
+![Diagram](./assets/diagram.png)
+
 A aplicação é composta por múltiplos microserviços independentes:
 
 * **Auth Service**: Gerencia autenticação e usuários.
