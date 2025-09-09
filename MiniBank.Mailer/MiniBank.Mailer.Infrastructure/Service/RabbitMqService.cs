@@ -1,12 +1,11 @@
 using System.Text;
 using Microsoft.Extensions.Logging;
-using MiniBank.Auth.Core.Helper;
-using MiniBank.Auth.Core.Helpers;
-using MiniBank.Auth.Core.Interface;
+using MiniBank.Mailer.Core.Helper;
+using MiniBank.Mailer.Core.Interface;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace MiniBank.Auth.Infrastructure.Service;
+namespace MiniBank.Mailer.Infrastructure.Service;
 
 public class RabbitMqService : IMessageBroker
 {
@@ -19,7 +18,7 @@ public class RabbitMqService : IMessageBroker
     {
         _logger = logger;
     }
-
+    
     public async Task SendMessageAsync(string queueName, string message)
     {
         var factory = new ConnectionFactory() { HostName = _hostName };
@@ -88,4 +87,3 @@ public class RabbitMqService : IMessageBroker
         LogHelper.LogInfo(_logger, $"Listening to queue: {queueName}");
     }
 }
-
