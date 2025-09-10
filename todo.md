@@ -33,7 +33,7 @@
 * [x] Configurar comunicação assíncrona via RabbitMQ (ex: envio de evento "UserCreated")
 * [x] Capturar logs com Serilog
 * [x] Criar testes unitários com xUnit
-* [x] Criar Dockerfile para build do serviço
+* [ ] Criar Dockerfile para build do serviço
 * [x] Atualizar docker-compose com o serviço
 * [x] Documentar endpoints no Swagger
 

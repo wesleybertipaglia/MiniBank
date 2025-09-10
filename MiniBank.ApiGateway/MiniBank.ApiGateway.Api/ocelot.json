@@ -1,76 +1,55 @@
 {
-  "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5010"
-  },
   "Routes": [
     {
-      "UpstreamPathTemplate": "/auth/{everything}",
-      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"],
-      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamPathTemplate": "/api/auth/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
           "Port": 5020
         }
-      ]
+      ],
+      "UpstreamPathTemplate": "/auth/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
     {
-      "UpstreamPathTemplate": "/bank/{everything}",
-      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"],
-      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamPathTemplate": "/api/user/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5020
+        }
+      ],
+      "UpstreamPathTemplate": "/user/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/accounts/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
           "Port": 5030
         }
-      ]
+      ],
+      "UpstreamPathTemplate": "/accounts/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
     {
-      "UpstreamPathTemplate": "/mailer/{everything}",
-      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"],
-      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamPathTemplate": "/api/emails/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
           "Port": 5040
         }
-      ]
-    }    
-  ],
-
-  "SwaggerEndPoints": [
-    {
-      "Key": "Auth",
-      "Config": [
-        {
-          "Name": "API Auth Service",
-          "Version": "v1",
-          "Url": "http://localhost:5020/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "Bank",
-      "Config": [
-        {
-          "Name": "API Bank Service",
-          "Version": "v1",
-          "Url": "http://localhost:5030/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "Mailer",
-      "Config": [
-        {
-          "Name": "API Mailer Service",
-          "Version": "v1",
-          "Url": "http://localhost:5040/swagger/v1/swagger.json"
-        }
-      ]
+      ],
+      "UpstreamPathTemplate": "/emails/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     }
-  ]
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:5000"
+  }
 }

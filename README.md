@@ -54,7 +54,6 @@ A aplicação é composta por múltiplos microserviços independentes:
 * [.NET 8 SDK](https://dotnet.microsoft.com/download)
 * [Docker](https://www.docker.com/)
 * [Docker Compose](https://docs.docker.com/compose/)
-* [PostgreSQL](https://www.postgresql.org/)
 
 ### 1. Clonar o Repositório
 
@@ -77,22 +76,30 @@ Cada microserviço possui sua própria *solution*, organizada em camadas. Para r
 
 ```bash
 dotnet build
-dotnet run --project MiniBank.Auth/MiniBank.Auth.Api
-dotnet run --project MiniBank.Bank/MiniBank.Bank.Api
-dotnet run --project MiniBank.Mailer/MiniBank.Mailer.Api
-dotnet run --project MiniBank.ApiGateway/MiniBank.ApiGateway.Api
+dotnet run --project MiniBank.Auth/MiniBank.Auth.Api  # Porta 5020
+dotnet run --project MiniBank.Bank/MiniBank.Bank.Api  # Porta 5030
+dotnet run --project MiniBank.Mailer/MiniBank.Mailer.Api  # Porta 5040
+dotnet run --project MiniBank.ApiGateway/MiniBank.ApiGateway.Api  # Porta 5000
 ```
 
-### 4. Acessar o Sistema
+### 4. Acessar o Sistema via API Gateway
 
-* **API Gateway**: [http://localhost:5010](http://localhost:5010)
-* **Swagger UI** por serviço:
+O **API Gateway** atua como ponto único de entrada para todos os serviços. Ao invés de acessar diretamente as portas individuais dos microserviços, utilize o gateway para fazer as chamadas HTTP.
 
-  * Auth: [http://localhost:5020/swagger](http://localhost:5020/swagger)
-  * Bank: [http://localhost:5030/swagger](http://localhost:5030/swagger)
-  * Mailer: [http://localhost:5040/swagger](http://localhost:5040/swagger)
-* **RabbitMQ Management**: [http://localhost:15672](http://localhost:15672)
-  (Usuário: `guest` / Senha: `guest`)
+Exemplos de rotas no gateway:
+
+| Serviço       | Rota no Gateway                                     | Encaminha para                                          |
+| ------------- | --------------------------------------------------- | ------------------------------------------------------- |
+| Auth          | `http://localhost:5000/auth/signup`                 | `http://localhost:5020/api/auth/signup`                 |
+| User          | `http://localhost:5000/user/confirm-email/{userId}` | `http://localhost:5020/api/user/confirm-email/{userId}` |
+| Bank Accounts | `http://localhost:5000/accounts/{userId}/deposit`   | `http://localhost:5030/api/accounts/{userId}/deposit`   |
+| Mailer        | `http://localhost:5000/emails/send`                 | `http://localhost:5040/api/emails/send`                 |
+
+Você pode usar o Swagger UI dos microserviços individualmente para testes e desenvolvimento:
+
+* Auth: [http://localhost:5020/swagger](http://localhost:5020/swagger)
+* Bank: [http://localhost:5030/swagger](http://localhost:5030/swagger)
+* Mailer: [http://localhost:5040/swagger](http://localhost:5040/swagger)
 
 ### 5. Executar os Testes
 
