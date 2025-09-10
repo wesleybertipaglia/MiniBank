@@ -12,6 +12,7 @@ public class AccountServiceTests
     private readonly Mock<IAccountRepository> _accountRepositoryMock = new();
     private readonly Mock<IMessageBrokerPublisher> _publisherMock = new();
     private readonly Mock<ILogger<AccountService>> _loggerMock = new();
+    private readonly Mock<ICacheService> _cacheMock = new();
 
     private readonly AccountService _service;
 
@@ -20,7 +21,8 @@ public class AccountServiceTests
         _service = new AccountService(
             _accountRepositoryMock.Object,
             _publisherMock.Object,
-            _loggerMock.Object
+            _loggerMock.Object,
+            _cacheMock.Object
         );
     }
 
@@ -60,22 +62,48 @@ public class AccountServiceTests
     }
 
     [Fact]
-    public async Task GetAccountByUserIdAsync_WhenAccountExists_ReturnsAccount()
+    public async Task GetAccountByUserIdAsync_WhenCacheHasData_ReturnsAccount()
+    {
+        var userId = Guid.NewGuid();
+        var cachedAccount = new Account { Id = Guid.NewGuid(), UserId = userId, Balance = 300 };
+
+        _cacheMock.Setup(c => c.GetAsync<Account>($"account:{userId}"))
+            .ReturnsAsync(cachedAccount);
+        
+        var result = await _service.GetAccountByUserIdAsync(userId);
+        
+        Assert.Equal(userId, result.UserId);
+        Assert.Equal(300, result.Balance);
+
+        _accountRepositoryMock.Verify(r => r.GetByUserIdAsync(It.IsAny<Guid>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task GetAccountByUserIdAsync_WhenCacheMissAndAccountExists_ReturnsAccountAndStoresInCache()
     {
         var userId = Guid.NewGuid();
         var account = new Account { Id = Guid.NewGuid(), UserId = userId, Balance = 200 };
+
+        _cacheMock.Setup(c => c.GetAsync<Account>($"account:{userId}"))
+                  .ReturnsAsync((Account)null!);
 
         _accountRepositoryMock.Setup(r => r.GetByUserIdAsync(userId)).ReturnsAsync(account);
 
         var result = await _service.GetAccountByUserIdAsync(userId);
 
         Assert.Equal(userId, result.UserId);
+        Assert.Equal(200, result.Balance);
+
+        _cacheMock.Verify(c => c.SetAsync($"account:{userId}", It.IsAny<Account>(), It.IsAny<TimeSpan>()), Times.Once);
     }
 
     [Fact]
     public async Task GetAccountByUserIdAsync_WhenAccountNotFound_ThrowsInvalidOperationException()
     {
         var userId = Guid.NewGuid();
+
+        _cacheMock.Setup(c => c.GetAsync<AccountResponseDto>($"account:{userId}"))
+                  .ReturnsAsync((AccountResponseDto)null!);
 
         _accountRepositoryMock.Setup(r => r.GetByUserIdAsync(userId))
                               .ReturnsAsync((Account)null!);
@@ -87,7 +115,7 @@ public class AccountServiceTests
     }
 
     [Fact]
-    public async Task DepositByUserIdAsync_WhenAccountExists_DepositsAmount()
+    public async Task DepositByUserIdAsync_WhenAccountExists_DepositsAmount_AndRemovesCache()
     {
         var userId = Guid.NewGuid();
         var account = new Account { Id = Guid.NewGuid(), UserId = userId, Balance = 100 };
@@ -100,6 +128,7 @@ public class AccountServiceTests
 
         Assert.Equal(150, result.Balance);
         _accountRepositoryMock.Verify(r => r.UpdateAsync(account), Times.Once);
+        _cacheMock.Verify(c => c.RemoveAsync($"account:{userId}"), Times.Once);
     }
 
     [Fact]
@@ -118,7 +147,7 @@ public class AccountServiceTests
     }
 
     [Fact]
-    public async Task WithdrawByUserIdAsync_WhenAccountExists_WithdrawsAmount()
+    public async Task WithdrawByUserIdAsync_WhenAccountExists_WithdrawsAmount_AndRemovesCache()
     {
         var userId = Guid.NewGuid();
         var account = new Account { Id = Guid.NewGuid(), UserId = userId, Balance = 200 };
@@ -131,6 +160,7 @@ public class AccountServiceTests
 
         Assert.Equal(100, result.Balance);
         _accountRepositoryMock.Verify(r => r.UpdateAsync(account), Times.Once);
+        _cacheMock.Verify(c => c.RemoveAsync($"account:{userId}"), Times.Once);
     }
 
     [Fact]
