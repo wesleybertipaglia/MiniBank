@@ -1,7 +1,6 @@
 using System.Text;
 using Microsoft.Extensions.Logging;
 using MiniBank.Auth.Core.Helper;
-using MiniBank.Auth.Core.Helpers;
 using MiniBank.Auth.Core.Interface;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;

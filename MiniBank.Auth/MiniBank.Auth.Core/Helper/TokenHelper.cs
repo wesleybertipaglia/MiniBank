@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MiniBank.Auth.Core.Model;
 
-namespace MiniBank.Auth.Core.Helpers;
+namespace MiniBank.Auth.Core.Helper;
 
 public static class TokenHelper
 {

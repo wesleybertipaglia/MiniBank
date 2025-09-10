@@ -4,6 +4,8 @@ services:
     container_name: minibank_adminer
     ports:
       - "8081:8080"
+    networks:
+      - minibank_network
 
   minibank_rabbitmq:
     image: rabbitmq:3-management
@@ -13,6 +15,18 @@ services:
       - "15672:15672"
     volumes:
       - minibank_rmq_data:/var/lib/rabbitmq
+    networks:
+      - minibank_network
+
+  minibank_redis:
+    image: redis:latest
+    container_name: minibank_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - minibank_redis_data:/data    
+    networks:
+      - minibank_network
 
   minibank_db_auth:
     image: postgres:latest
@@ -25,6 +39,8 @@ services:
       - "5420:5432"
     volumes:
       - minibank_db_data_auth:/var/lib/postgresql/data
+    networks:
+      - minibank_network
 
   minibank_db_bank:
     image: postgres:latest
@@ -37,9 +53,16 @@ services:
       - "5430:5432"
     volumes:
       - minibank_db_data_bank:/var/lib/postgresql/data
+    networks:
+      - minibank_network
 
 
 volumes:
   minibank_rmq_data:
+  minibank_redis_data:
   minibank_db_data_auth:
   minibank_db_data_bank:
+
+networks:
+  minibank_network:
+    driver: bridge

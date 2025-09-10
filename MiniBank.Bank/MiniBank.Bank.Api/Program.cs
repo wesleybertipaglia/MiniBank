@@ -6,6 +6,7 @@ using MiniBank.Bank.Infrastructure.Data;
 using MiniBank.Bank.Infrastructure.Repository;
 using MiniBank.Bank.Infrastructure.Service;
 using Serilog;
+using StackExchange.Redis;
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
@@ -26,12 +27,16 @@ try
 
     builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    
+    builder.Services.AddSingleton<IConnectionMultiplexer>(
+        ConnectionMultiplexer.Connect("localhost:6379"));
 
     builder.Services.AddControllers().AddJsonOptions(options =>
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
     builder.Services.AddScoped<IAccountRepository, AccountRepository>();
     builder.Services.AddScoped<IAccountService, AccountService>();
+    builder.Services.AddScoped<ICacheService, RedisCacheService>();
     builder.Services.AddScoped<IMessageBroker, RabbitMqService>();
     builder.Services.AddScoped<IMessageBrokerConsumer, MessageBrokerConsumer>();
     builder.Services.AddScoped<IMessageBrokerPublisher, MessageBrokerPublisher>();

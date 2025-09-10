@@ -6,5 +6,6 @@ public interface IUserService
 {
     Task<UserDto> GetByIdAsync(Guid id);
     Task<UserDto> GetByEmailAsync(string email);
+    Task<UserDto> GetCurrentUserAsync();
     Task<UserDto> ConfirmEmailAsync(Guid userId);
 }
