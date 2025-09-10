@@ -77,10 +77,10 @@ Cada microserviço possui sua própria *solution*, organizada em camadas. Para r
 
 ```bash
 dotnet build
-dotnet run --project src/MiniBank.Auth/MiniBank.Auth.API
-dotnet run --project src/MiniBank.Bank/MiniBank.Bank.API
-dotnet run --project src/MiniBank.Mailer/MiniBank.Mailer.API
-dotnet run --project src/MiniBank.ApiGateway/MiniBank.ApiGateway.API
+dotnet run --project MiniBank.Auth/MiniBank.Auth.Api
+dotnet run --project MiniBank.Bank/MiniBank.Bank.Api
+dotnet run --project MiniBank.Mailer/MiniBank.Mailer.Api
+dotnet run --project MiniBank.ApiGateway/MiniBank.ApiGateway.Api
 ```
 
 ### 4. Acessar o Sistema
