@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using MiniBank.Auth.Application.Service;
 using MiniBank.Auth.Core.Interface;
@@ -11,6 +12,8 @@ public class UserServiceTests
     private readonly Mock<IUserRepository> _userRepositoryMock = new();
     private readonly Mock<IMessageBrokerPublisher> _publisherMock = new();
     private readonly Mock<ILogger<UserService>> _loggerMock = new();
+    private readonly Mock<ICacheService> _cacheServiceMock = new();
+    private readonly Mock<IHttpContextAccessor> _httpContextAccessorMock = new();
 
     private readonly UserService _service;
 
@@ -19,7 +22,9 @@ public class UserServiceTests
         _service = new UserService(
             _userRepositoryMock.Object,
             _publisherMock.Object,
-            _loggerMock.Object
+            _loggerMock.Object,
+            _cacheServiceMock.Object,
+            _httpContextAccessorMock.Object
         );
     }
     
