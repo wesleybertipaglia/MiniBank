@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MiniBank.Auth.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250909200911_InitialCreate")]
+    [Migration("20250910012404_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

@@ -11,7 +11,7 @@ Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
     .WriteTo.Console()
     .WriteTo.File(
-        path: $"logs/bank-{DateTime.Now:yyyyMMdd-HHmmss}.log",
+        path: $"logs/mailer-{DateTime.Now:yyyyMMdd-HHmmss}.log",
         outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}"
     )
     .CreateLogger();
