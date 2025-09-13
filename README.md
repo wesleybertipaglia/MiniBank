@@ -1,150 +1,154 @@
-# MiniBank – Sistema Bancário Distribuído
+# MiniBank – Distributed Banking System
 
-**MiniBank** é uma aplicação demonstrativa construída com arquitetura de microserviços para simular operações bancárias básicas. O projeto foi desenvolvido com foco em boas práticas de engenharia de software, mensageria assíncrona, escalabilidade, testes automatizados e integração com serviços externos.
+A distributed microservices-based banking system for simulating basic financial operations using modern software engineering practices.
 
-## Sumário
+## Table of Contents
 
-* [1. Arquitetura](#arquitetura)
-* [2. Funcionalidades](#funcionalidades)
-* [3. Tecnologias](#tecnologias)
-* [4. Como Executar o Projeto](#como-executar-o-projeto)
-* [5. Estrutura de Diretórios](#estrutura-de-diretórios)
-* [6. Considerações Finais](#considerações-finais)
+* [Features](#features)
+* [Getting Started](#getting-started)
+* [Usage](#usage)
+* [Entities](#entities)
+* [Contributing](#contributing)
+* [License](#license)
 
-## Arquitetura
+## Features
 
-![Diagram](./assets/diagram.png)
+* Modular microservices architecture
+* Asynchronous messaging with **RabbitMQ**
+* Centralized API routing with **Ocelot**
+* Structured logging with **Serilog**
+* User authentication and email confirmation flow
+* PostgreSQL integration with **Entity Framework Core**
+* Transactional email simulation
+* Caching support with **Redis**
+* Automated unit testing with **xUnit**
+* CI/CD with **GitHub Actions**
+* Cloud-ready (AWS compatible)
 
-A aplicação é composta por múltiplos microserviços independentes:
+## Getting Started
 
-* **Auth Service**: Gerencia autenticação e usuários.
-* **Bank Service**: Gerencia contas bancárias e transações.
-* **Mailer Service**: Responsável pelo envio de e-mails transacionais.
-* **API Gateway**: Roteamento centralizado utilizando Ocelot.
+### Prerequisites
 
-## Funcionalidades
-
-* Comunicação entre microserviços via **RabbitMQ**
-* Separação clara de responsabilidades por serviço
-* Publicação e consumo de eventos assíncronos
-* Envio de e-mails (simulado)
-* Integração com **PostgreSQL** via **EF Core**
-* Registro de logs estruturados com **Serilog**
-* Testes de unidade com **xUnit**
-* Preparado para ambientes em nuvem (AWS-ready)
-* Suporte a **CI/CD** com **GitHub Actions**
-
-## Tecnologias
-
-* **.NET 8**
-* **Entity Framework Core**
-* **PostgreSQL**
-* **RabbitMQ**
-* **Redis** (Caching)
-* **Docker & Docker Compose**
-* **Ocelot** (API Gateway)
-* **Serilog** (Logging estruturado)
-* **xUnit** (Testes automatizados)
-* **GitHub Actions** (Integração Contínua e Deploy)
-
-## Como Executar o Projeto
-
-### Pré-requisitos
+Make sure you have the following installed:
 
 * [.NET 8 SDK](https://dotnet.microsoft.com/download)
 * [Docker](https://www.docker.com/)
 * [Docker Compose](https://docs.docker.com/compose/)
 
-### 1. Clonar o Repositório
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/wesleybertipaglia/MiniBank.git
 cd MiniBank
 ```
 
-### 2. Subir a Infraestrutura com Docker Compose
+### 2. Run Docker Infrastructure
 
 ```bash
 docker compose up -d
 ```
 
-Esse comando inicia o **RabbitMQ** e os bancos de dados **PostgreSQL** usados pelos serviços.
+This will start the **RabbitMQ** broker and **PostgreSQL** databases used by the services.
 
-### 3. Executar os Microserviços
+### 3. Run the Microservices
 
-Cada microserviço possui sua própria *solution*, organizada em camadas. Para rodar todos os serviços:
+Each service has its own solution and follows a layered architecture. You can run them individually:
 
 ```bash
 dotnet build
-dotnet run --project MiniBank.Auth/MiniBank.Auth.Api  # Porta 5020
-dotnet run --project MiniBank.Bank/MiniBank.Bank.Api  # Porta 5030
-dotnet run --project MiniBank.Mailer/MiniBank.Mailer.Api  # Porta 5040
-dotnet run --project MiniBank.ApiGateway/MiniBank.ApiGateway.Api  # Porta 5000
+dotnet run --project MiniBank.Auth/MiniBank.Auth.Api                # Port 5020
+dotnet run --project MiniBank.Bank/MiniBank.Bank.Api                # Port 5030
+dotnet run --project MiniBank.Mailer/MiniBank.Mailer.Api            # Port 5040
+dotnet run --project MiniBank.ApiGateway/MiniBank.ApiGateway.Api    # Port 5000
 ```
 
-### 4. Acessar o Sistema via API Gateway
+## Usage
 
-O **API Gateway** atua como ponto único de entrada para todos os serviços. Ao invés de acessar diretamente as portas individuais dos microserviços, utilize o gateway para fazer as chamadas HTTP.
+You can interact with the services using the Swagger UI or any HTTP client through the API Gateway:
 
-Exemplos de rotas no gateway:
+### Sign Up
 
-| Serviço       | Rota no Gateway                                     | Encaminha para                                          |
-| ------------- | --------------------------------------------------- | ------------------------------------------------------- |
-| Auth          | `http://localhost:5000/auth/signup`                 | `http://localhost:5020/api/auth/signup`                 |
-| User          | `http://localhost:5000/user/confirm-email/{userId}` | `http://localhost:5020/api/user/confirm-email/{userId}` |
-| Bank Accounts | `http://localhost:5000/accounts/{userId}/deposit`   | `http://localhost:5030/api/accounts/{userId}/deposit`   |
-| Mailer        | `http://localhost:5000/emails/send`                 | `http://localhost:5040/api/emails/send`                 |
+`POST /auth/signup`
 
-Você pode usar o Swagger UI dos microserviços individualmente para testes e desenvolvimento:
+Registers a new user.
 
-* Auth: [http://localhost:5020/swagger](http://localhost:5020/swagger)
-* Bank: [http://localhost:5030/swagger](http://localhost:5030/swagger)
-* Mailer: [http://localhost:5040/swagger](http://localhost:5040/swagger)
+* Content-Type: `application/json`
+* Body:
 
-### 5. Executar os Testes
-
-```bash
-dotnet test
+```json
+{
+  "name": "user",
+  "email": "user@example.com",
+  "password": "SecurePassword123!"
+}
 ```
 
-## Estrutura de Diretórios
+Returns: `201 Created` on success with user details and token
 
-```
-src/
-├── MiniBank.Auth/
-│   ├── MiniBank.Auth.API/
-│   ├── MiniBank.Auth.Application/
-│   ├── MiniBank.Auth.Core/
-│   ├── MiniBank.Auth.Infrastructure/
-│   └── MiniBank.Auth.Tests/
-├── MiniBank.Bank/
-│   ├── MiniBank.Bank.API/
-│   ├── MiniBank.Bank.Application/
-│   ├── MiniBank.Bank.Core/
-│   ├── MiniBank.Bank.Infrastructure/
-│   └── MiniBank.Bank.Tests/
-├── MiniBank.Mailer/
-│   ├── MiniBank.Mailer.API/
-│   ├── MiniBank.Mailer.Application/
-│   ├── MiniBank.Mailer.Infrastructure/
-│   └── MiniBank.Mailer.Tests/
-├── MiniBank.ApiGateway/
-│   └── MiniBank.ApiGateway.API/
-docker-compose.yml
-LICENSE
-MiniBank.sln
-README.md
+### Sign In
+
+`POST /auth/signin`
+
+Authenticates a user and returns a JWT token.
+
+* Content-Type: `application/json`
+* Body:
+
+```json
+{
+  "email": "user@example.com",
+  "password": "SecurePassword123!"
+}
 ```
 
-## Considerações Finais
+Returns: `200 OK` on success with user details and token
 
-Este projeto foi desenvolvido com o objetivo de demonstrar conhecimentos práticos em:
+### Confirm Email
 
-* Arquitetura de sistemas distribuídos
-* Mensageria assíncrona
-* Logging estruturado
-* Testes automatizados
-* Integração e entrega contínua (CI/CD)
-* Boas práticas de desenvolvimento com **.NET**
+`GET /user/confirm-email/{userId}`
 
-O foco principal não é entregar um produto pronto para produção, mas sim evidenciar habilidades técnicas e domínio de uma arquitetura moderna baseada em microserviços.
+Confirms a user's email address using their ID.
+
+Returns: `200 OK` on success or `404 Not Found` if the user does not exist
+
+### Deposit to Account
+
+`POST /accounts/{userId}/deposit`
+
+Deposits funds into a user’s account.
+
+* Content-Type: `application/json`
+* Body:
+
+```json
+{
+  "amount": 100.00,
+  "description": "Initial deposit"
+}
+```
+
+Returns: `200 OK` with updated account balance
+
+## Entities
+
+### Auth Service
+
+* **User**: Registration, login, email confirmation, password management
+
+### Bank Service
+
+* **Account**: Balance, deposits, withdrawals, and transactions
+* **Transaction**: Represents financial operations tied to accounts
+
+### Mailer Service
+
+* **Email**: Simulates sending transactional messages (confirmation, notifications)
+
+## Contributing
+
+Contributions are welcome!
+Feel free to fork this repository and submit a pull request with a clear explanation of your changes.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
